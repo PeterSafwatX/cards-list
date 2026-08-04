@@ -28,8 +28,15 @@ cards as there are people.
 
 Fork the repo, add `<your-github-username>.html` to the root, open a pull request.
 
+**Fork first — you can't push a branch to this repository.** Only maintainers have write
+access here, so pushing straight to `cards-list` fails with *"You do not have access to
+push"*. Your fork is a copy under your own account that you can push to freely, and the
+pull request is what brings your card back here. This is how every open source project
+works.
+
 [**CONTRIBUTING.md**](CONTRIBUTING.md) has the full walkthrough — the fork-and-branch
-steps, what belongs in the file, and what reviewers check before merging.
+steps, what belongs in the file, what reviewers check before merging, and fixes for the
+errors people hit most often.
 
 ## Ground rules
 

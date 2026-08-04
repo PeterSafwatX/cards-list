@@ -30,21 +30,39 @@ Everything else — layout, colors, type, spacing — is your call.
 
 ## Steps
 
+> [!IMPORTANT]
+> **You cannot push a branch to this repository.** Only maintainers have write access, so
+> pushing to `KarimHesham/cards-list` fails with *"You do not have access to push to this
+> repository"*. That is normal and it is not a problem with your setup — step 1 gives you
+> your own copy to push to instead. Every contributor works this way. Don't skip it.
+
 ### 1. Fork the repository
 
-Click **Fork** at the top of the repo page, then clone your fork:
+Click **Fork** at the top of the repo page. That creates
+`https://github.com/YOUR-USERNAME/cards-list`, a copy under your own account that you *can*
+push to. Then clone **your fork**, not this repo — check that your username is in the URL:
 
 ```bash
 git clone https://github.com/YOUR-USERNAME/cards-list.git
 cd cards-list
 ```
 
-Or, with the GitHub CLI, in one step:
+Or, with the GitHub CLI, in one step — this forks, clones, points `origin` at your fork,
+and adds this repo as `upstream`:
 
 ```bash
 gh repo fork KarimHesham/cards-list --clone
 cd cards-list
 ```
+
+Either way, confirm `origin` is yours before you go further:
+
+```bash
+git remote -v
+```
+
+The `origin` lines must contain **your** username. If they say `KarimHesham`, fix it now
+using the first entry under [Troubleshooting](#troubleshooting).
 
 ### 2. Create your branch
 
@@ -110,6 +128,52 @@ git push -u origin your-github-username
 
 Then open a pull request against `main` on this repo. GitHub will offer you a button right
 after you push. Fill in the checklist in the pull request template and you're done.
+
+---
+
+## Troubleshooting
+
+### "You do not have access to push to this repository"
+
+Also appears as *"Permission to KarimHesham/cards-list.git denied"* or *"403"*. You are
+pushing to this repository instead of to your fork. Check where `origin` points:
+
+```bash
+git remote -v
+```
+
+If those lines say `KarimHesham/cards-list`, you cloned this repo directly or skipped the
+fork. Create the fork on GitHub with the **Fork** button, then repoint `origin` at your
+copy and keep this repo as `upstream`:
+
+```bash
+git remote set-url origin https://github.com/YOUR-USERNAME/cards-list.git
+git remote add upstream https://github.com/KarimHesham/cards-list.git
+git push -u origin your-github-username
+```
+
+Nothing you have written is lost. Your commits live in your local clone; only the address
+you are pushing them to changes.
+
+### "Updates were rejected because the remote contains work that you do not have locally"
+
+Your fork has fallen behind this repo. Fetch the latest `main` and replay your work on top
+of it:
+
+```bash
+git fetch upstream
+git rebase upstream/main
+```
+
+### My pull request shows other people's cards in the diff
+
+Your branch is based on an outdated `main`, so the diff includes everything merged since.
+Same fix as above: `git fetch upstream` then `git rebase upstream/main`.
+
+### The photo doesn't load
+
+Open `https://github.com/YOUR-USERNAME.png` in a browser tab. If it doesn't show your
+avatar, the username in your script has a typo, or your GitHub account has no picture set.
 
 ---
 
