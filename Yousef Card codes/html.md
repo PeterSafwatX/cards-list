@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+
+<body>
+  <div class="flip-card">
+    <div class="flip-card-inner">
+      <div class="flip-card-front">
+        <h1>Yousef Ammar</h1>
+      </div>
+      <div class="flip-card-back">
+        <h1>AKA joe</h1>
+        <p>Decent guy</p>
+      </div>
+    </div>
+  </div>
+<button id="theme-toggle">Toggle dark mode</button>
+ <script>
+    const toggleButton = document.getElementById('theme-toggle');
+
+    toggleButton.addEventListener('click', () => {
+      document.body.classList.toggle('dark-mode');
+    });
+  </script>
+
+</body>
+
+</html>
