@@ -18,7 +18,12 @@ const people = [
     name: "Mariam Ashraf",
     age: 20,
     uni: "GIU"
+  {
+    name: "Yousef Ammar",
+    age: 20,
+    uni: "FUE"
   }
+  
 ];
 
 console.log(people);
