@@ -30,6 +30,10 @@ Everything else — layout, colors, type, spacing — is your call.
 
 ## Steps
 
+### Add your information to the shared data file
+
+Open [Data.js](Data.js) and add a new object to the `people` array with your `name`, `age`, and `uni` values. Keep the same structure as the example entry so everyone can contribute in a consistent way.
+
 > [!IMPORTANT]
 > **You cannot push a branch to this repository.** Only maintainers have write access, so
 > pushing to `KarimHesham/cards-list` fails with *"You do not have access to push to this
