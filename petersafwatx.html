@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PeterSafwatX</title>
+
+<style>
+  :root {
+    --background-color: #f4f4f4;
+    --card-background: #ffffff;
+    --text-color: #222222;
+    --secondary-text: #555555;
+    --border-color: #dddddd;
+    --button-background: #222222;
+    --button-text: #ffffff;
+    --shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  }
+
+  body.dark {
+    --background-color: #121212;
+    --card-background: #1f1f1f;
+    --text-color: #f5f5f5;
+    --secondary-text: #d0d0d0;
+    --border-color: #333333;
+    --button-background: #f5f5f5;
+    --button-text: #121212;
+    --shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--background-color);
+    color: var(--text-color);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+    padding: 20px;
+    transition: background-color .3s ease, color .3s ease;
+  }
+
+  .card {
+    width: min(90vw, 400px);
+    background: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 18px;
+    box-shadow: var(--shadow);
+    padding: clamp(20px, 6vw, 35px);
+    text-align: center;
+    transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
+  }
+
+  .card img {
+    width: clamp(100px, 30vw, 150px);
+    height: clamp(100px, 30vw, 150px);
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 24px;
+  }
+
+  .card h1 {
+    font-size: clamp(1.4rem, 6vw, 2.4rem);
+    margin-bottom: 12px;
+    overflow-wrap: break-word;
+  }
+
+  .card h2 {
+    font-size: clamp(1rem, 4vw, 1.3rem);
+    margin-bottom: 12px;
+    overflow-wrap: break-word;
+  }
+
+  .card p {
+    font-size: clamp(0.9rem, 3vw, 1.1rem);
+    color: var(--secondary-text);
+  }
+
+  #theme-toggle {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    background: var(--button-background);
+    color: var(--button-text);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform .2s ease, background-color .3s ease, color .3s ease;
+  }
+
+  #theme-toggle:hover { transform: translateY(-2px); }
+  #theme-toggle:focus { outline: 3px solid #4a90e2; outline-offset: 4px; }
+</style>
+</head>
+
+<body>
+
+  <main>
+    <article class="card">
+      <img data-field="photo" alt="">
+      <h1 data-field="name"></h1>
+      <h2 data-field="job-title"></h2>
+      <p data-field="company"></p>
+    </article>
+  </main>
+
+  <button id="theme-toggle" type="button">Dark mode</button>
+
+  <script>
+    const profile = {
+      photo: "https://github.com/PeterSafwatX.png",
+      name: "Peter Safwat",
+      jobTitle: "Software Engineer",
+      company: "Klivvr"
+    };
+
+    const fields = {
+      photo: document.querySelector('[data-field="photo"]'),
+      name: document.querySelector('[data-field="name"]'),
+      jobTitle: document.querySelector('[data-field="job-title"]'),
+      company: document.querySelector('[data-field="company"]')
+    };
+
+    fields.photo.src = profile.photo;
+    fields.photo.alt = `${profile.name}'s profile photo`;
+    fields.name.textContent = profile.name;
+    fields.jobTitle.textContent = profile.jobTitle;
+    fields.company.textContent = profile.company;
+
+    const themeButton = document.getElementById("theme-toggle");
+    themeButton.addEventListener("click", () => {
+      const isDark = document.body.classList.toggle("dark");
+      themeButton.textContent = isDark ? "Light mode" : "Dark mode";
+    });
+  </script>
+
+</body>
+</html>
