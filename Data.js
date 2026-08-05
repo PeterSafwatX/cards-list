@@ -13,6 +13,11 @@ const people = [
     name: "Adam Ashraf",
     age: 21,
     uni: "GUC"
+  },
+   {
+    name: "Mariam Ashraf",
+    age: 20,
+    uni: "GIU"
   }
 ];
 
