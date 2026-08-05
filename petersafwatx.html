@@ -16,7 +16,6 @@
     --button-text: #ffffff;
     --shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
   }
-
   body.dark {
     --background-color: #121212;
     --card-background: #1f1f1f;
@@ -27,9 +26,7 @@
     --button-text: #121212;
     --shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
   }
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
-
   body {
     font-family: Arial, Helvetica, sans-serif;
     background: var(--background-color);
@@ -44,38 +41,59 @@
     transition: background-color .3s ease, color .3s ease;
   }
 
-  .card {
+  .card-container {
     width: min(90vw, 400px);
+    height: 420px;
+    perspective: 1000px;
+  }
+  .card {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: transform .7s ease;
+  }
+  .card-container:hover .card {
+    transform: rotateY(180deg);
+  }
+  .card-face {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: clamp(20px, 6vw, 35px);
     background: var(--card-background);
     border: 1px solid var(--border-color);
     border-radius: 18px;
     box-shadow: var(--shadow);
-    padding: clamp(20px, 6vw, 35px);
-    text-align: center;
+    backface-visibility: hidden;
     transition: background-color .3s ease, border-color .3s ease, box-shadow .3s ease;
   }
+  .card-back {
+    transform: rotateY(180deg);
+  }
 
-  .card img {
+  .card-front img {
     width: clamp(100px, 30vw, 150px);
     height: clamp(100px, 30vw, 150px);
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 24px;
   }
-
-  .card h1 {
+  .card-front h1 {
     font-size: clamp(1.4rem, 6vw, 2.4rem);
     margin-bottom: 12px;
     overflow-wrap: break-word;
   }
-
-  .card h2 {
+  .card-back h2 {
     font-size: clamp(1rem, 4vw, 1.3rem);
     margin-bottom: 12px;
     overflow-wrap: break-word;
   }
-
-  .card p {
+  .card-back p {
     font-size: clamp(0.9rem, 3vw, 1.1rem);
     color: var(--secondary-text);
   }
@@ -90,21 +108,27 @@
     cursor: pointer;
     transition: transform .2s ease, background-color .3s ease, color .3s ease;
   }
-
   #theme-toggle:hover { transform: translateY(-2px); }
-  #theme-toggle:focus { outline: 3px solid #4a90e2; outline-offset: 4px; }
+  #theme-toggle:focus-visible { outline: 3px solid #4a90e2; outline-offset: 4px; }
 </style>
 </head>
-
 <body>
-
   <main>
-    <article class="card">
-      <img data-field="photo" alt="">
-      <h1 data-field="name"></h1>
-      <h2 data-field="job-title"></h2>
-      <p data-field="company"></p>
-    </article>
+    <div class="card-container">
+      <article class="card">
+
+        <div class="card-face card-front">
+          <img data-field="photo" alt="">
+          <h1 data-field="name"></h1>
+        </div>
+
+        <div class="card-face card-back">
+          <h2 data-field="job-title"></h2>
+          <p data-field="company"></p>
+        </div>
+
+      </article>
+    </div>
   </main>
 
   <button id="theme-toggle" type="button">Dark mode</button>
@@ -124,18 +148,19 @@
       company: document.querySelector('[data-field="company"]')
     };
 
-    fields.photo.src = profile.photo;
-    fields.photo.alt = `${profile.name}'s profile photo`;
-    fields.name.textContent = profile.name;
-    fields.jobTitle.textContent = profile.jobTitle;
-    fields.company.textContent = profile.company;
+    document.querySelector('[data-field="photo"]').src = profile.photo;
+    document.querySelector('[data-field="photo"]').alt = `${profile.name}'s profile photo`;
+    document.querySelector('[data-field="name"]').textContent = profile.name;
+    document.querySelector('[data-field="job-title"]').textContent = profile.jobTitle;
+    document.querySelector('[data-field="company"]').textContent = profile.company;
 
     const themeButton = document.getElementById("theme-toggle");
     themeButton.addEventListener("click", () => {
-      const isDark = document.body.classList.toggle("dark");
-      themeButton.textContent = isDark ? "Light mode" : "Dark mode";
+      document.body.classList.toggle("dark");
+      themeButton.textContent = document.body.classList.contains("dark")
+      ? "Light mode"
+      : "Dark mode";
     });
   </script>
-
 </body>
 </html>
